@@ -6,6 +6,7 @@
 //  Copyright © 2018 GeekGuns. All rights reserved.
 //
 
+
 import UIKit
 
 enum VersionError: Error {
@@ -76,7 +77,7 @@ class ArgAppUpdater: NSObject {
         return task
     }
     
-    func checkVersion() {
+    private  func checkVersion(force: Bool) {
         let info = Bundle.main.infoDictionary
         let currentVersion = info?["CFBundleShortVersionString"] as? String
         _ = getAppInfo { (info, error) in
@@ -91,27 +92,42 @@ class ArgAppUpdater: NSObject {
             } else {
                 print("needs update")
                 
-                               let vc = UIViewController()
-                               vc.showAppUpdateAlert(Version: (info?.version)!, Force: false, AppURL: (info?.trackViewUrl)!)
+                DispatchQueue.main.async {
+                    let topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
+                    
+                    topController.showAppUpdateAlert(Version: (info?.version)!, Force: force, AppURL: (info?.trackViewUrl)!)
+                }
                 
-                
-                
-//                 DispatchQueue.main.async {
-//                     UIApplication.shared.keyWindow?.rootViewController?.parent?.showAppUpdateAlert(Version: (info?.version)!, Force: false, AppURL: (info?.trackViewUrl)!)
-//                 }
             }
         }
         
         
     }
+    
+    func showUpdateWithConfirmation() {
+        checkVersion(force : false)
+        
+        
+    }
+    
+    func showUpdateWithForce() {
+        checkVersion(force : true)
+    }
+    
+    
+    
 }
 
 extension UIViewController {
-    func showAppUpdateAlert( Version : String, Force: Bool, AppURL: String) {
+    
+    
+    fileprivate func showAppUpdateAlert( Version : String, Force: Bool, AppURL: String) {
+        print("AppURL:::::",AppURL)
         
         let bundleName = Bundle.main.infoDictionary!["CFBundleDisplayName"] as! String;
         let alertMessage = "\(bundleName) Version \(Version) is available on AppStore."
         let alertTitle = "New Version"
+        
         
         let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
         
@@ -120,14 +136,7 @@ extension UIViewController {
             let notNowButton = UIAlertAction(title: "Not Now", style: .default) { (action:UIAlertAction) in
                 print("Don't Call API");
                 
-                guard let url = URL(string: AppURL) else {
-                    return
-                }
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
+                
             }
             alertController.addAction(notNowButton)
         }
@@ -135,6 +144,14 @@ extension UIViewController {
         let updateButton = UIAlertAction(title: "Update", style: .default) { (action:UIAlertAction) in
             print("Call API");
             print("No update")
+            guard let url = URL(string: AppURL) else {
+                return
+            }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
             
         }
         
