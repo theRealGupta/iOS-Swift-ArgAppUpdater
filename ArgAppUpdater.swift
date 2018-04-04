@@ -91,14 +91,14 @@ class ArgAppUpdater: NSObject {
             } else {
                 print("needs update")
                 
-                //                let vc = UIViewController()
-                //                vc.showAppUpdateAlert(Version : (info?.version)! , Force: false)
+                               let vc = UIViewController()
+                               vc.showAppUpdateAlert(Version : (info?.version)! , Force: false)
                 
                 
                 
-                DispatchQueue.main.async {
-                    UIApplication.shared.keyWindow?.rootViewController?.parent?.showAppUpdateAlert(Version: (info?.version)!, Force: false, AppURL: (info?.trackViewUrl)!)
-                }
+//                 DispatchQueue.main.async {
+//                     UIApplication.shared.keyWindow?.rootViewController?.parent?.showAppUpdateAlert(Version: (info?.version)!, Force: false, AppURL: (info?.trackViewUrl)!)
+//                 }
             }
         }
         
