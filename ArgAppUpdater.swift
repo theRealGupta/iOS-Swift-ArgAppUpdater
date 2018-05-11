@@ -76,27 +76,26 @@ class ArgAppUpdater: NSObject {
         print("task ******", task)
         return task
     }
-    
     private  func checkVersion(force: Bool) {
         let info = Bundle.main.infoDictionary
         let currentVersion = info?["CFBundleShortVersionString"] as? String
         _ = getAppInfo { (info, error) in
             
-            print("info:::",info as Any)
-            
-            print("App link :::" , info?.trackViewUrl as Any)
+            let appStoreAppVersion = info?.version
+  
             if let error = error {
                 print(error)
-            } else if info?.version == currentVersion {
-                print("updated")
-            } else {
-                print("needs update")
                 
+                
+                
+            }else if appStoreAppVersion!.compare(currentVersion!, options: .numeric) == .orderedDescending {
+                //                print("needs update")
+               // print("hiiii")
                 DispatchQueue.main.async {
                     let topController: UIViewController = UIApplication.shared.keyWindow!.rootViewController!
                     
                     topController.showAppUpdateAlert(Version: (info?.version)!, Force: force, AppURL: (info?.trackViewUrl)!)
-                }
+            }
                 
             }
         }
