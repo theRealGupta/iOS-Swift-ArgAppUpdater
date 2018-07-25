@@ -26,4 +26,4 @@
 > if you want to Force Method Then Try This  👇🏻
 ArgAppUpdater.getSingleton().showUpdateWithForce()
 
-### Note:  This is complte free for any user. Anyone can Change the code or logic
+*Note:  This is compltely free for any user. Anyone can Change the code or logic*
