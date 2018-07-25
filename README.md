@@ -22,9 +22,13 @@
 
 **ArgAppUpdater.getSingleton().showUpdateWithConfirmation()**
 
+![img_2968](https://user-images.githubusercontent.com/6472263/43183229-09700046-9002-11e8-8548-1aa1dd446b33.PNG)
+
 
 > if you want to Force Method Then Try This  👇🏻
 
-ArgAppUpdater.getSingleton().showUpdateWithForce()
+**ArgAppUpdater.getSingleton().showUpdateWithForce()**
+
+![img_2969](https://user-images.githubusercontent.com/6472263/43183234-0c248ee2-9002-11e8-8a62-f703477969fd.PNG)
 
 *Note:  This is compltely free for any user. Anyone can Change the code or logic*
