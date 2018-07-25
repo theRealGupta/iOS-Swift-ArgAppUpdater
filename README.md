@@ -3,7 +3,7 @@
 ## There are 2 way to update app. 
 
 
-1. Cser Confirmation Method
+1. User Confirmation Method
 2. Force Method
 
 > By user confirmation Method name is 
